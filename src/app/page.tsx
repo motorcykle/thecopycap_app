@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import { auth, SignedIn, SignedOut, SignIn, SignInButton, UserButton } from '@clerk/nextjs'
 import { Banknote, MoveRight, Upload } from 'lucide-react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default async function Home() {
   const session = await auth()
@@ -24,7 +25,9 @@ export default async function Home() {
             <Button variant={"secondary"}>
               <UserButton />
             </Button>
-            <Button>Generate caption <MoveRight/> </Button>
+            <Link prefetch={false} href={"/generate-cap"}>
+              <Button>Generate caption <MoveRight/> </Button>
+            </Link>
             <Button variant={"outline"}>Billing <Banknote className='ml-2' /></Button>
           </SignedIn>
           <SignedOut>
