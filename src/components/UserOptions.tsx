@@ -36,8 +36,6 @@ export default function UserOptions ({ isCapStar, setUserChoice, userChoice }: {
   const [loading, setLoading] = React.useState(false)
   const router = useRouter()
 
-  useEffect(() => console.log(userChoice), [userChoice])
-
   const handleSub = async () => {
     try {
       setLoading(true)

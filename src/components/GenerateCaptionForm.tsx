@@ -15,15 +15,13 @@ export default function GenerateCaptionForm({ isCapStar }: {isCapStar: boolean})
   const handleSubmit = async () => {
     setLoading(true)
     try {
-      console.log(userChoice, "***")
       const res = await axios.post("/api/openai", {
         image: base64,
         prompt: `Make me an Instagram caption for the image get inspired by ${userChoice?.name}, here are some example captions you could take inspiration from and find patterns if you need it and it makes sense: ${userChoice?.examples.join(" & ")} (you don't have to use these examples and don't use hashtags!)`
       })
-      console.log(res.data.response.message.content)
+
       setAIResponse(res?.data?.response?.message?.content);
     } catch (error) {
-      // alert(error)
       console.log(error)
     } finally {
       setLoading(false)

@@ -21,8 +21,6 @@ export default function BillingButton({
       const res = await axios.get("/api/stripe")
       router.push(res.data.url)
 
-      console.log(res)
-
     } catch (error) {
       console.error(error)
     } finally {

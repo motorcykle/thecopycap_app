@@ -29,7 +29,6 @@ export async function POST(request: Request) {
                 max_tokens: 2000
             });
     
-            console.log(response.choices[0]);
             return NextResponse.json({ response: response.choices[0]}, { status: 200 })
         } catch (error) {
             return NextResponse.json({ error }, { status: 400 })
