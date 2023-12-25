@@ -29,7 +29,6 @@ const paidCelebs = [
 
 export default function UserOptions ({ isCapStar }: { isCapStar: boolean }) {
   const [loading, setLoading] = React.useState(false)
-  const [isSubbed, setIsSubbed] = React.useState(false);
   const router = useRouter()
 
   const handleSub = async () => {
@@ -50,13 +49,13 @@ export default function UserOptions ({ isCapStar }: { isCapStar: boolean }) {
     <section className="">
       <h2>Choose between these Instagram users</h2>
       <section className=" space-x-3 space-y-3">
-        {(isCapStar ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge>@{celeb}</Badge>)}
+        {(isCapStar ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge key={celeb}>@{celeb}</Badge>)}
       </section>
 
       {/* upgrade prompt */}
       {!isCapStar && <section className="mt-5 space-y-1">
         <Button onClick={handleSub} disabled={loading} variant={"secondary"}>Upgrade to CapStar <span className={`ml-1 ${loading && "animate-spin"}`}>⭐</span></Button>
-        <p className=" max-w-xl text-muted-foreground text-xs">Become a CapStar member and get access to 10 more users ({paidCelebs.map((celeb, i) => `${celeb}${i !== paidCelebs.length-1 ? ", " : ""}`)}).</p>
+        <p className=" max-w-xl text-muted-foreground text-xs">Become a CapStar member and get access to 10 more users ({paidCelebs.map((celeb, i) => <span key={celeb}>{`${celeb}${i !== paidCelebs.length-1 ? ", " : ""}`}</span>)}).</p>
       </section>}
     </section>
   )
