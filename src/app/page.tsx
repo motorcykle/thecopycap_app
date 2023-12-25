@@ -26,7 +26,7 @@ export default async function Home() {
         <section className='space-x-2 flex flex-col sm:flex-row space-y-2 items-center sm:space-y-0'>
           <SignedIn>
             <Button variant={"secondary"}>
-              <UserButton />
+              <UserButton afterSignOutUrl="/" />
             </Button>
             <Link prefetch={false} href={"/generate-cap"}>
               <Button>Generate caption <MoveRight/> </Button>

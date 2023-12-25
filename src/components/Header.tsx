@@ -8,7 +8,7 @@ export default function Header () {
       <Link href={"/"} prefetch={false} className=" text-muted-foreground font-semibold">@copycap</Link>
 
       <Button variant={"secondary"}>
-        <UserButton />
+        <UserButton afterSignOutUrl="/" />
       </Button>
     </nav>
   </header>
