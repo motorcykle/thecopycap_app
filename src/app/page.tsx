@@ -1,12 +1,15 @@
+import BillingButton from '@/components/BillingButton'
 import { Button } from '@/components/ui/button'
+import { checkSubscription } from '@/lib/subscription'
 import { auth, SignedIn, SignedOut, SignIn, SignInButton, UserButton } from '@clerk/nextjs'
 import { Banknote, MoveRight, Upload } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React from 'react'
 
 export default async function Home() {
-  const session = await auth()
-  console.log(session)
+  const isCapStar = await checkSubscription()
 
   return (
     <main className='min-h-screen w-screen flex items-center justify-center p-5'>
@@ -28,12 +31,12 @@ export default async function Home() {
             <Link prefetch={false} href={"/generate-cap"}>
               <Button>Generate caption <MoveRight/> </Button>
             </Link>
-            <Button variant={"outline"}>Billing <Banknote className='ml-2' /></Button>
+            <BillingButton isCapStar={isCapStar} />
           </SignedIn>
           <SignedOut>
             <SignInButton>
               <Button>
-                Log in to upload Image <Upload />
+                Log in to generate caption <Upload className='h-4 w-4 ml-1' />
               </Button>
             </SignInButton>
           </SignedOut>

@@ -1,7 +1,13 @@
+"use client"
+
 import Header from "@/components/Header"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { checkSubscription } from "@/lib/subscription"
+import axios from "axios"
+import { useRouter } from "next/navigation"
+import React, { useEffect } from "react"
 
 const freeCelebs = [
   "kyliejenner",
@@ -25,6 +31,35 @@ const paidCelebs = [
 ]
 
 export default function GenerateCaption() {
+  const [loading, setLoading] = React.useState(false)
+  const [isSubbed, setIsSubbed] = React.useState(false);
+  const router = useRouter()
+
+  async function checkSub() {
+    // const res = await checkSubscription();
+    // console.log(res)
+  }
+
+  React.useEffect(() => {
+    // checkSub()
+  }, [])
+
+  const handleSub = async () => {
+    try {
+      setLoading(true)
+
+      const res = await axios.get("/api/stripe")
+      router.push(res.data.url)
+
+    } catch (error) {
+      console.error(error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  
+
   return <main className="min-h-screen w-screen ">
     <Header />
 
@@ -40,7 +75,7 @@ export default function GenerateCaption() {
 
         {/* upgrade prompt */}
         {true && <section className="mt-5 space-y-1">
-          <Button  variant={"secondary"}>Upgrade to CapStar ⭐</Button>
+          <Button onClick={handleSub} disabled={loading} variant={"secondary"}>Upgrade to CapStar <span className={`ml-1 ${loading && "animate-spin"}`}>⭐</span></Button>
           <p className=" max-w-xl text-muted-foreground text-xs">Become a CapStar member and get access to 10 more users ({paidCelebs.map((celeb, i) => `${celeb}${i !== paidCelebs.length-1 ? ", " : ""}`)}).</p>
         </section>}
       </section>
