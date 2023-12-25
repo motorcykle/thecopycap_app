@@ -45,6 +45,10 @@ export default function UserOptions ({ isCapStar }: { isCapStar: boolean }) {
     }
   }
 
+  const handleOption = () => {
+    
+  }
+
   return (
     <section className="">
       <h2>Choose between these Instagram users</h2>

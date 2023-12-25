@@ -1,7 +1,8 @@
 import Header from "@/components/Header"
 import UserOptions from "@/components/UserOptions"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import GenerateCaptionForm from "@/components/GenerateCaptionForm"
+
 import { checkSubscription } from "@/lib/subscription"
 
 const freeCelebs = [
@@ -34,17 +35,8 @@ export default async function GenerateCaption() {
     <section className=" max-w-6xl w-full mx-auto p-5 space-y-8">
       
       <h1 className="underline text-2xl md:text-5xl font-semibold">Generate your caption</h1>
-      {/* chooose celeb */}
-      <UserOptions isCapStar={isCapStar} />
 
-      {/* upload image */}
-      <section className="space-y-3">
-        <h2>Upload your image here</h2>
-        <Input className="" type="file" placeholder="image here" />
-      </section>
-
-      {/* submit and get caption */}
-      <Button >Generate caption</Button>
+      <GenerateCaptionForm isCapStar={isCapStar} />
 
     </section>
   </main>
