@@ -27,7 +27,12 @@ const paidCelebs = [
   { name: "vancityreynolds", examples: ["Did @Dogpool save the day? Not a chance in gremlin hell. But she IS currently causing the Disney plushy merch department nightmares. Coming with the movie, Summer 2024 🐶💩L", "Happy Birthday to the inimitable and stunning Sandra Bullock! For your birthday this year, I got us both intimacy coordinators. And an HR department. And clothing?", "The rumors stop here. Will Ferrell and I did NOT lip sync our dancing in Spirited. Tomorrow’s trailer will settle it."] }
 ]
 
-export default function UserOptions ({ isCapStar, setUserChoice, userChoice }: { isCapStar: boolean, setUserChoice: Dispatch<SetStateAction<string>>, userChoice: string | null }) {
+export type UserChoice = {
+  name: string;
+  examples: string[]
+}
+
+export default function UserOptions ({ isCapStar, setUserChoice, userChoice }: { isCapStar: boolean, setUserChoice: Dispatch<SetStateAction<UserChoice | null>>, userChoice: UserChoice | null }) {
   const [loading, setLoading] = React.useState(false)
   const router = useRouter()
 
@@ -47,16 +52,15 @@ export default function UserOptions ({ isCapStar, setUserChoice, userChoice }: {
     }
   }
 
-  const handleOption = (event: React.MouseEvent<HTMLDivElement>) => {
-    const choice = ((event.currentTarget as HTMLDivElement).innerText)
-    setUserChoice(choice)
+  const handleOption = (celeb: UserChoice) => {
+    setUserChoice(celeb)
   }
 
   return (
     <section className="">
       <h2>Choose between these Instagram users</h2>
       <section className=" space-x-3 space-y-3">
-        {(isCapStar ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge className={`cursor-pointer tracking-wide ${userChoice?.includes(celeb.name) && " animate-pulse border-gray-100 border-2 border-dashed bg-violet-900"}`} onClick={handleOption} key={celeb.name}>@{celeb.name}</Badge>)}
+        {(isCapStar ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge className={`cursor-pointer tracking-wide ${userChoice?.name?.includes(celeb.name) && " animate-pulse border-gray-100 border-2 border-dashed bg-violet-900"}`} onClick={() => handleOption(celeb)} key={celeb.name}>@{celeb.name}</Badge>)}
       </section>
 
       {/* upgrade prompt */}
