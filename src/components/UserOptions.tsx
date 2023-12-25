@@ -47,8 +47,8 @@ export default function UserOptions ({ isCapStar, setUserChoice, userChoice }: {
     }
   }
 
-  const handleOption = ({ target }) => {
-    const choice = (target.innerText)
+  const handleOption = (event: React.MouseEvent<HTMLDivElement>) => {
+    const choice = ((event.currentTarget as HTMLDivElement).innerText)
     setUserChoice(choice)
   }
 
