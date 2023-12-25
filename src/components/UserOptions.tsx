@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { Dispatch, SetStateAction, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
 
@@ -27,9 +27,11 @@ const paidCelebs = [
   "vancityreynolds"
 ]
 
-export default function UserOptions ({ isCapStar }: { isCapStar: boolean }) {
+export default function UserOptions ({ isCapStar, setUserChoice, userChoice }: { isCapStar: boolean, setUserChoice: Dispatch<SetStateAction<string>>, userChoice: string | null }) {
   const [loading, setLoading] = React.useState(false)
   const router = useRouter()
+
+  useEffect(() => console.log(userChoice), [userChoice])
 
   const handleSub = async () => {
     try {
@@ -45,15 +47,16 @@ export default function UserOptions ({ isCapStar }: { isCapStar: boolean }) {
     }
   }
 
-  const handleOption = () => {
-    
+  const handleOption = ({ target }) => {
+    const choice = (target.innerText)
+    setUserChoice(choice)
   }
 
   return (
     <section className="">
       <h2>Choose between these Instagram users</h2>
       <section className=" space-x-3 space-y-3">
-        {(isCapStar ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge key={celeb}>@{celeb}</Badge>)}
+        {(isCapStar ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge className={`cursor-pointer tracking-wide ${userChoice?.includes(celeb) && " animate-pulse border-gray-100 border-2 border-dashed bg-violet-900"}`} onClick={handleOption} key={celeb}>@{celeb}</Badge>)}
       </section>
 
       {/* upgrade prompt */}

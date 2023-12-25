@@ -4,30 +4,36 @@ import { Input } from "@/components/ui/input"
 import { Ref, useRef, useState } from 'react'
 import axios from 'axios'
 import UserOptions from "./UserOptions"
+import { Loader } from "lucide-react"
 
 export default function GenerateCaptionForm({ isCapStar }: {isCapStar: boolean}) {
   const [aiResponse, setAIResponse] = useState("");
   const [base64, setBase64] = useState<string | ArrayBuffer | null>(null);
   const [userChoice, setUserChoice] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async () => {
+    setLoading(true)
     try {
-      const res = await axios.post("/api/vision", {
+      console.log(userChoice, "***")
+      const res = await axios.post("/api/openai", {
         image: base64,
-        prompt: ``
+        prompt: `Make me an Instagram caption for the image get inspired by ${userChoice}`
       })
       console.log(res.data.response.message.content)
       setAIResponse(res?.data?.response?.message?.content);
     } catch (error) {
       // alert(error)
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <>
 
-      <UserOptions isCapStar={isCapStar} />
+      <UserOptions userChoice={userChoice} setUserChoice={setUserChoice} isCapStar={isCapStar} />
 
       <section className="space-y-3">
         <h2>Upload your image here</h2>
@@ -47,7 +53,17 @@ export default function GenerateCaptionForm({ isCapStar }: {isCapStar: boolean})
       </section>
 
       {/* if you get ai response replace the button to it? */}
-      <Button disabled={!(base64 && userChoice)} onClick={handleSubmit}>Generate caption</Button>
+      <Button disabled={!(base64 && userChoice) || loading } onClick={handleSubmit}>{loading ? <Loader className="animate-spin" /> : "Generate caption"}</Button>
+
+      {aiResponse && (
+        <section className="space-y-3">
+          <h2 className=" animate-pulse">Here's your generated caption 🎉</h2>
+          <div className=" bg-violet-600 rounded-lg p-5 cursor-pointer" onClick={() => navigator.clipboard.writeText(aiResponse)}>
+            <p className=" leading-10 text-3xl">{aiResponse}</p>
+          </div>
+          
+        </section>
+      )}
     </>
   )
 }
