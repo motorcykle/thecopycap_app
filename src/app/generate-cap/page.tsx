@@ -5,27 +5,6 @@ import GenerateCaptionForm from "@/components/GenerateCaptionForm"
 
 import { checkSubscription } from "@/lib/subscription"
 
-const freeCelebs = [
-  "kyliejenner",
-  "kimkardashian",
-  "centralcee",
-  "bronny",
-  "kaicenat"
-]
-
-const paidCelebs = [
-  "lilbaby",
-  "druski",
-  "nickiminaj",
-  "21savage",
-  "polo.capalot",
-  "beyonce",
-  "travisscott",
-  "champagnepapi",
-  "kendalljenner",
-  "vancityreynolds"
-]
-
 export default async function GenerateCaption() {
   const isCapStar = await checkSubscription()
 
