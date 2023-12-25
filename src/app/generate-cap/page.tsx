@@ -1,13 +1,8 @@
-"use client"
-
 import Header from "@/components/Header"
-import { Badge } from "@/components/ui/badge"
+import UserOptions from "@/components/UserOptions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { checkSubscription } from "@/lib/subscription"
-import axios from "axios"
-import { useRouter } from "next/navigation"
-import React, { useEffect } from "react"
 
 const freeCelebs = [
   "kyliejenner",
@@ -30,35 +25,8 @@ const paidCelebs = [
   "vancityreynolds"
 ]
 
-export default function GenerateCaption() {
-  const [loading, setLoading] = React.useState(false)
-  const [isSubbed, setIsSubbed] = React.useState(false);
-  const router = useRouter()
-
-  async function checkSub() {
-    // const res = await checkSubscription();
-    // console.log(res)
-  }
-
-  React.useEffect(() => {
-    // checkSub()
-  }, [])
-
-  const handleSub = async () => {
-    try {
-      setLoading(true)
-
-      const res = await axios.get("/api/stripe")
-      router.push(res.data.url)
-
-    } catch (error) {
-      console.error(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  
+export default async function GenerateCaption() {
+  const isCapStar = await checkSubscription()
 
   return <main className="min-h-screen w-screen ">
     <Header />
@@ -67,18 +35,7 @@ export default function GenerateCaption() {
       
       <h1 className="underline text-2xl md:text-5xl font-semibold">Generate your caption</h1>
       {/* chooose celeb */}
-      <section className="">
-        <h2>Choose between these Instagram users</h2>
-        <section className=" space-x-3 space-y-3">
-          {(false ? paidCelebs.concat(freeCelebs) : freeCelebs).map((celeb) => <Badge>@{celeb}</Badge>)}
-        </section>
-
-        {/* upgrade prompt */}
-        {true && <section className="mt-5 space-y-1">
-          <Button onClick={handleSub} disabled={loading} variant={"secondary"}>Upgrade to CapStar <span className={`ml-1 ${loading && "animate-spin"}`}>⭐</span></Button>
-          <p className=" max-w-xl text-muted-foreground text-xs">Become a CapStar member and get access to 10 more users ({paidCelebs.map((celeb, i) => `${celeb}${i !== paidCelebs.length-1 ? ", " : ""}`)}).</p>
-        </section>}
-      </section>
+      <UserOptions isCapStar={isCapStar} />
 
       {/* upload image */}
       <section className="space-y-3">
