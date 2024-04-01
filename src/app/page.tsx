@@ -16,7 +16,7 @@ export default async function Home() {
       <section className='space-y-6 max-w-6xl mx-auto w-full border-l pl-5'>
         <section className='space-y-3'>
           <div className="flex space-x-3 items-center">
-            <Image className=' rounded-md' width={100} height={100} alt='drake img' src={"https://scontent.cdninstagram.com/v/t51.2885-15/409834394_3650287001962383_3673418689182879727_n.jpg?stp=dst-jpg_e35&efg=eyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4xNDQweDE0NDAuc2RyIn0&_nc_ht=scontent.cdninstagram.com&_nc_cat=1&_nc_ohc=dgfGEr_3VZoAX_ntVKa&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzI1NzM5NjA1MjI2MDE5MzExMQ%3D%3D.2-ccb7-5&oh=00_AfB8RbIlofjjWaIkFnPo4SPgEykTVSTRgIA_BdAvWHvbRQ&oe=658C79C5&_nc_sid=10d13b"} />
+            <Image className=' rounded-md' width={100} height={100} alt='drake img' src={"/409834394_3650287001962383_3673418689182879727_n.webp"} />
             <h1 className='text-5xl md:text-7xl font-semibold'>Copy<span className=' text-muted-foreground'>Cap 🧢</span> </h1>
           </div>
           
