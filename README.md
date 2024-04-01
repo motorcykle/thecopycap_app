@@ -1,3 +1,7 @@
+
+[screen-capture (2).webm](https://github.com/motorcykle/thecopycap_app/assets/51007395/eafb0b07-4517-4a1a-bb15-e050388bb4ff)
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
